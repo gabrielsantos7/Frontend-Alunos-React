@@ -29,8 +29,8 @@ export default createGlobalStyle`
     background-color: ${primaryColor};
     border: none;
     color: #fff;
-    padding: 10px 20px;
-    border-radius: 4px;
+    padding: 1rem 2rem;
+    border-radius: 0.4rem;
     font-weight: 700;
   }
 
@@ -45,10 +45,10 @@ export default createGlobalStyle`
 `;
 
 export const Container = styled.section`
-  max-width: 360px;
+  max-width: 36rem;
   background: #fff;
-  margin: 30px auto;
-  padding: 30px;
-  border-radius: 4px;
-  box-shadow: 0 0 10px rgba(0,0,0, 0.1);
+  margin: 3rem auto;
+  padding: 3rem;
+  border-radius: 0.4rem;
+  box-shadow: 0 0 1rem rgba(0,0,0, 0.1);
 `;
