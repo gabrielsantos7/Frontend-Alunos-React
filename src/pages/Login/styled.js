@@ -1,5 +1,5 @@
 import styled from 'styled-components';
 
 export const Title = styled.h1`
-  color: red
+  color: ${(prop) => (prop.color ? prop.color : 'pink')}
 `;
