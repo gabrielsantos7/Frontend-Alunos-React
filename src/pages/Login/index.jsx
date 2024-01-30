@@ -1,7 +1,8 @@
 import { Container } from '../../styles/GlobalStyles';
 import { Title } from './styled';
+import axios from '../../services/axios';
 
-function Login() {
+const Login = () => {
   return (
     <Container>
       <Title color='blue'>Hello World!</Title>
@@ -9,6 +10,6 @@ function Login() {
       <button type='button'>Click me</button>
     </Container>
   );
-}
+};
 
 export default Login;
