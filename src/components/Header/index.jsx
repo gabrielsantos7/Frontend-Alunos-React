@@ -1,9 +1,11 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
-import { FaHome, FaSignInAlt, FaUserAlt } from 'react-icons/fa';
+import { useSelector } from 'react-redux';
 
+import { FaHome, FaSignInAlt, FaUserAlt } from 'react-icons/fa';
 import { Nav } from './styled';
-function Header() {
+
+const Header = () => {
+  const clickedButton = useSelector((state) => state.example.hasClicked);
   return (
     <Nav>
       <ul>
@@ -23,7 +25,8 @@ function Header() {
           </Link>
         </li>
       </ul>
+      {clickedButton ? 'Botão clicado' : 'Botão não clicado'}
     </Nav>
   );
-}
+};
 export default Header;
