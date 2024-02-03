@@ -11,6 +11,9 @@ import PrivateRoute from './PrivateRoute';
 import Header from '../components/Header';
 import Login from '../pages/Login';
 import NotFound from '../pages/NotFound';
+import Register from '../pages/Register';
+import Aluno from '../pages/Aluno';
+import Fotos from '../pages/Fotos';
 import Alunos from '../pages/Alunos';
 
 const AppRoutes = () => {
@@ -21,13 +24,30 @@ const AppRoutes = () => {
           <Header />
           <App />
           <Routes>
-            <Route path='/' element={<Login />} />
-            <Route path='/login' element={<Login />} />
+            <Route path='/' element={<Alunos />} />
+            <Route path='/register/' element={<Register />} />
+            <Route path='/login/' element={<Login />} />
             <Route
-              path='/alunos'
+              path='/aluno/:id/edit/'
               element={
                 <PrivateRoute>
-                  <Alunos />
+                  <Aluno />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path='/aluno/novo/'
+              element={
+                <PrivateRoute>
+                  <Aluno />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path='/aluno/:id/fotos/'
+              element={
+                <PrivateRoute>
+                  <Fotos />
                 </PrivateRoute>
               }
             />

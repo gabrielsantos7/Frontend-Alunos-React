@@ -1,7 +1,12 @@
-import React from 'react';
+import { Container } from '../../styles/GlobalStyles';
+import { Title } from './styled';
 
 const Alunos = () => {
-  return <div>CRUD de alunos</div>;
+  return (
+    <Container>
+      <Title>Alunos</Title>
+    </Container>
+  );
 };
 
 export default Alunos;

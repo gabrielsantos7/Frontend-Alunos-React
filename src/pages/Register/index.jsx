@@ -1,12 +1,12 @@
 import { Container } from '../../styles/GlobalStyles';
 import { Title } from './styled';
 
-const Login = () => {
+const Register = () => {
   return (
     <Container>
-      <Title>Login</Title>
+      <Title>Register</Title>
     </Container>
   );
 };
 
-export default Login;
+export default Register;

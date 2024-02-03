@@ -6,7 +6,7 @@ import React from 'react';
 const PrivateRoute = ({ children }) => {
   const isLogged = false;
 
-  return isLogged ? children : <Navigate to={'/login'} />;
+  return isLogged ? children : <Navigate to={'/login/'} />;
 };
 
 PrivateRoute.propTypes = {
