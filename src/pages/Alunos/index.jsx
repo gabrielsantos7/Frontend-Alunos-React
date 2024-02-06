@@ -1,12 +1,12 @@
+import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { get } from 'lodash';
 import { Link } from 'react-router-dom';
 import { FaUserCircle, FaEdit, FaTrash } from 'react-icons/fa';
 
-import { Container } from '../../styles/GlobalStyles';
+import { Container, Title } from '../../styles/GlobalStyles';
 import { AlunosContainer, IconsContainer, ProfilePicture } from './styled';
 import axios from '../../services/axios';
-import { useEffect, useState } from 'react';
 
 const Alunos = () => {
   const [alunos, setAlunos] = useState([]);
@@ -21,7 +21,7 @@ const Alunos = () => {
 
   return (
     <Container>
-      <h1>Alunos</h1>
+      <Title>Alunos</Title>
       <AlunosContainer>
         {alunos.map((aluno, index) => (
           <div key={index}>

@@ -1,6 +1,5 @@
 import { useParams } from 'react-router-dom';
-import { Container } from '../../styles/GlobalStyles';
-import { Title } from './styled';
+import { Container, Title } from '../../styles/GlobalStyles';
 
 const Aluno = () => {
   const { id } = useParams();

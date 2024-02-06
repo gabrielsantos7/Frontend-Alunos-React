@@ -1,5 +1,4 @@
-import { Container } from '../../styles/GlobalStyles';
-import { Title } from './styled';
+import { Container, Title } from '../../styles/GlobalStyles';
 
 const Fotos = () => {
   return (
