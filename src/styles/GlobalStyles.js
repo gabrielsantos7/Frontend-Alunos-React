@@ -60,15 +60,20 @@ export const Input = styled.input`
   border-bottom: 1px solid ${colors.disabledLightColor};
   outline: none;
   transition: border-bottom-color 0.3s ease;
-  font-size: 1rem;
+  font-size: 1.5rem;
 
   &:focus {
     border-bottom-color: ${colors.primaryColor};
 
-    &:focus + label {
-      transform: translateY(-1.5rem) scale(0.9);
+    & + label {
+      transform: translateY(-1.75rem) scale(0.9);
       color: ${colors.primaryColor};
     }
+  }
+
+  &:not(:placeholder-shown) + label {
+    transform: translateY(-1.75rem) scale(0.9);
+    color: ${colors.primaryColor};
   }
 `;
 
@@ -79,11 +84,11 @@ export const Label = styled.label`
   color: ${colors.disabledDarkColor};
   font-size: 1.25rem;
   transition: transform 0.3s ease, color 0.3s ease;
-  transform-origin: left bottom;
 `;
 
 export const Button = styled.button`
   cursor: pointer;
+  width: 100%;
   background-color: ${colors.primaryColor};
   border: none;
   color: #fff;
