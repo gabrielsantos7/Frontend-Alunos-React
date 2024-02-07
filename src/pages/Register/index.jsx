@@ -12,6 +12,7 @@ import {
   FloatingLabel,
   Input,
   Label,
+  Loader,
 } from '../../styles/GlobalStyles';
 import { Form } from './styled';
 
@@ -19,6 +20,9 @@ const Register = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [username, setUsername] = useState('');
+
+  const [redirectToLogin, setRedirectToLogin] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
@@ -52,6 +56,7 @@ const Register = () => {
     }
 
     if (!formErrors) {
+      setLoading(true);
       axios
         .post('/users/', {
           nome: username,
@@ -60,16 +65,21 @@ const Register = () => {
         })
         .then(() => {
           toast.success('Conta criada com sucesso!');
-          return <Navigate to='/login' />;
+          setTimeout(() => {
+            setRedirectToLogin(true);
+          }, 500);
         })
         .catch((error) => {
           const errors = get(error, 'response.data.errors', []);
           errors.map((error) => toast.error(error));
-        });
+        })
+        .finally(() => setLoading(false));
     }
   };
 
-  return (
+  return redirectToLogin ? (
+    <Navigate to='/login/' />
+  ) : (
     <Container>
       <Title>Crie sua conta</Title>
       <Form onSubmit={handleSubmit}>
@@ -108,7 +118,17 @@ const Register = () => {
           />
           <Label htmlFor='password'>Senha</Label>
         </FloatingLabel>
-        <Button type='submit'>Register</Button>
+        <Button
+          disabled={
+            username.length < 4 ||
+            password.length < 6 ||
+            !email.includes('@') ||
+            !email.includes('.')
+          }
+          type='submit'
+        >
+          {loading ? <Loader /> : 'Criar conta'}
+        </Button>
       </Form>
     </Container>
   );
