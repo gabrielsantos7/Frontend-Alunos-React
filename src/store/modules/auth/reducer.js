@@ -9,11 +9,18 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+    case types.LOGIN_REQUEST: {
+      const newState = { ...state };
+      newState.isLoading = true;
+      return newState;
+    }
+
     case types.LOGIN_SUCCESS: {
       const newState = { ...state };
       newState.isLoggedIn = true;
       newState.user = action.payload.user;
       newState.token = action.payload.token;
+      newState.isLoading = false;
       return newState;
     }
 

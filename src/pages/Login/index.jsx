@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { isEmail } from 'validator';
 import { toast } from 'react-toastify';
 
@@ -21,7 +21,7 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const [loading, setLoading] = useState(false);
+  const loading = useSelector((state) => state.auth.isLoading);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -39,7 +39,6 @@ const Login = () => {
 
     if (!formErrors) {
       if (loading) return;
-      setLoading(true);
       dispatch(
         actions.loginRequest({
           email,
@@ -76,7 +75,12 @@ const Login = () => {
           <Label htmlFor='password'>Senha</Label>
         </FloatingLabel>
 
-        <Button type='submit'>{loading ? <Loading /> : 'Acessar'}</Button>
+        <Button
+          disabled={email.length < 4 || password.length < 6}
+          type='submit'
+        >
+          {loading ? <Loading /> : 'Acessar'}
+        </Button>
       </Form>
     </Container>
   );

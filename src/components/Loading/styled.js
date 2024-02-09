@@ -41,7 +41,7 @@ const rotateScaleAnimation = keyframes`
 `;
 
 export const Loader = styled.div`
-  width: 25px;
+  width: 20px;
   margin: 0 auto;
   aspect-ratio: 1;
   border-radius: 50%;
