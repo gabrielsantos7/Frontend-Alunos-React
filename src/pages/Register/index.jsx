@@ -56,6 +56,7 @@ const Register = () => {
     }
 
     if (!formErrors) {
+      if (loading) return;
       setLoading(true);
       axios
         .post('/users/', {
@@ -73,7 +74,12 @@ const Register = () => {
           const errors = get(error, 'response.data.errors', []);
           errors.map((error) => toast.error(error));
         })
-        .finally(() => setLoading(false));
+        .finally(() => {
+          setUsername('');
+          setEmail('');
+          setPassword('');
+          setLoading(false);
+        });
     }
   };
 
