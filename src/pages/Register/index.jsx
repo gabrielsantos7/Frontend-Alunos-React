@@ -12,9 +12,9 @@ import {
   FloatingLabel,
   Input,
   Label,
-  Loader,
   Form,
 } from '../../styles/GlobalStyles';
+import Loading from '../../components/Loading';
 
 const Register = () => {
   const [email, setEmail] = useState('');
@@ -63,9 +63,6 @@ const Register = () => {
           errors.map((error) => toast.error(error));
         })
         .finally(() => {
-          setUsername('');
-          setEmail('');
-          setPassword('');
           setLoading(false);
         });
     }
@@ -121,7 +118,7 @@ const Register = () => {
           }
           type='submit'
         >
-          {loading ? <Loader /> : 'Criar conta'}
+          {loading ? <Loading /> : 'Criar conta'}
         </Button>
       </Form>
     </Container>

@@ -11,9 +11,9 @@ import {
   FloatingLabel,
   Label,
   Input,
-  Loader,
   Button,
 } from '../../styles/GlobalStyles';
+import Loading from '../../components/Loading';
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -76,7 +76,7 @@ const Login = () => {
           <Label htmlFor='password'>Senha</Label>
         </FloatingLabel>
 
-        <Button type='submit'>{loading ? <Loader /> : 'Acessar'}</Button>
+        <Button type='submit'>{loading ? <Loading /> : 'Acessar'}</Button>
       </Form>
     </Container>
   );

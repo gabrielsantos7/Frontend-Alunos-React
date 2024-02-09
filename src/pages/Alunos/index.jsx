@@ -8,6 +8,7 @@ import { Container, Title } from '../../styles/GlobalStyles';
 import { AlunosContainer, IconsContainer, ProfilePicture } from './styled';
 import axios from '../../services/axios';
 import SkeletonCard from '../../components/SkeletonCard';
+import Loading from '../../components/Loading';
 
 const Alunos = () => {
   const [alunos, setAlunos] = useState([]);
