@@ -47,6 +47,14 @@ export const Title = styled.h1`
   color: ${colors.primaryColor}
 `;
 
+export const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 3rem auto;
+  width: 36rem;
+`;
+
 export const FloatingLabel = styled.div`
   position: relative;
   margin-bottom: 3.5rem;

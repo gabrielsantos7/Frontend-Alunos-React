@@ -13,8 +13,8 @@ import {
   Input,
   Label,
   Loader,
+  Form,
 } from '../../styles/GlobalStyles';
-import { Form } from './styled';
 
 const Register = () => {
   const [email, setEmail] = useState('');
@@ -23,18 +23,6 @@ const Register = () => {
 
   const [redirectToLogin, setRedirectToLogin] = useState(false);
   const [loading, setLoading] = useState(false);
-
-  const handleEmailChange = (event) => {
-    setEmail(event.target.value);
-  };
-
-  const handlePasswordChange = (event) => {
-    setPassword(event.target.value);
-  };
-
-  const handleUsernameChange = (event) => {
-    setUsername(event.target.value);
-  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -96,7 +84,7 @@ const Register = () => {
             autoComplete='name'
             placeholder=''
             value={username}
-            onChange={handleUsernameChange}
+            onChange={(e) => setUsername(e.target.value)}
           />
           <Label htmlFor='username'>Nome de usuário</Label>
         </FloatingLabel>
@@ -108,7 +96,7 @@ const Register = () => {
             autoComplete='email'
             placeholder=''
             value={email}
-            onChange={handleEmailChange}
+            onChange={(e) => setEmail(e.target.value)}
           />
           <Label htmlFor='email'>E-mail</Label>
         </FloatingLabel>
@@ -120,7 +108,7 @@ const Register = () => {
             autoComplete='new-password'
             placeholder=''
             value={password}
-            onChange={handlePasswordChange}
+            onChange={(e) => setPassword(e.target.value)}
           />
           <Label htmlFor='password'>Senha</Label>
         </FloatingLabel>
