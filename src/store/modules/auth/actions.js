@@ -20,3 +20,31 @@ export const loginFailure = (payload) => {
     payload,
   };
 };
+
+export const registerRequest = (payload) => {
+  return {
+    type: types.REGISTER_REQUEST,
+    payload,
+  };
+};
+
+export const registerUpdatedSuccess = (payload) => {
+  return {
+    type: types.REGISTER_UPDATED_SUCCESS,
+    payload,
+  };
+};
+
+export const registerCreatedSuccess = (payload) => {
+  return {
+    type: types.REGISTER_CREATED_SUCCESS,
+    payload,
+  };
+};
+
+export const registerFailure = (payload) => {
+  return {
+    type: types.REGISTER_FAILURE,
+    payload,
+  };
+};

@@ -18,6 +18,45 @@ function* loginRequest({ payload }) {
   }
 }
 
+function* registerRequest({ payload }) {
+  const { id, nome, email, password } = payload;
+
+  try {
+    if (id) {
+      yield call(axios.put, '/users', {
+        nome,
+        email,
+        password: password || undefined,
+      });
+
+      toast.success('Os dados da conta foram atualizados com sucesso!');
+      yield put(actions.registerUpdatedSuccess({ nome, email, password }));
+    } else {
+      yield call(axios.post, '/users', { nome, email, password });
+
+      toast.success('Conta criada com sucesso!');
+      yield put(actions.registerCreatedSuccess({ nome, email, password }));
+    }
+  } catch (e) {
+    const errors = get(e, 'response.data.errors', []);
+    const status = get(e, 'response.status', 0);
+
+    if (status === 401) {
+      toast.info('Faça login novamente para continuar.');
+      yield put(actions.loginFailure());
+      return;
+    }
+
+    if (errors.length > 0) {
+      errors.map((error) => toast.error(error));
+    } else {
+      toast.error('Ocorreu um erro desconhecido.');
+    }
+
+    yield put(actions.registerFailure());
+  }
+}
+
 function persistRehydrate({ payload }) {
   const token = get(payload, 'auth.token', '');
 
@@ -27,5 +66,6 @@ function persistRehydrate({ payload }) {
 
 export default all([
   takeLatest(types.LOGIN_REQUEST, loginRequest),
+  takeLatest(types.REGISTER_REQUEST, registerRequest),
   takeLatest(types.PERSIST_REHYDRATE, persistRehydrate),
 ]);

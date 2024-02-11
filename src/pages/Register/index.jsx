@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import * as actions from '../../store/modules/auth/actions';
 import { toast } from 'react-toastify';
 import { isEmail } from 'validator';
-import { get } from 'lodash';
 
-import axios from '../../services/axios';
 import {
   Container,
   Title,
@@ -17,12 +17,25 @@ import {
 import Loading from '../../components/Loading';
 
 const Register = () => {
+  const dispatch = useDispatch();
+  const { user, isLoading: loading } = useSelector((state) => state.auth);
+
+  const userId = user.id;
+  const emailStored = user.email;
+  const nameStored = user.nome;
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [username, setUsername] = useState('');
 
   const [redirectToLogin, setRedirectToLogin] = useState(false);
-  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (!userId) return;
+
+    setUsername(nameStored);
+    setEmail(emailStored);
+  }, [userId, nameStored, emailStored]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -38,33 +51,22 @@ const Register = () => {
       toast.error('O endereço de e-mail informado é inválido.');
     }
 
-    if (password.length < 6 || password.length > 50) {
+    if (!userId && (password.length < 6 || password.length > 50)) {
       formErrors = true;
       toast.error('A senha deve ter entre 4 e 50 caracteres.');
     }
 
     if (!formErrors) {
       if (loading) return;
-      setLoading(true);
-      axios
-        .post('/users/', {
+
+      dispatch(
+        actions.registerRequest({
+          id: userId,
           nome: username,
-          password,
           email,
-        })
-        .then(() => {
-          toast.success('Conta criada com sucesso!');
-          setTimeout(() => {
-            setRedirectToLogin(true);
-          }, 500);
-        })
-        .catch((error) => {
-          const errors = get(error, 'response.data.errors', []);
-          errors.map((error) => toast.error(error));
-        })
-        .finally(() => {
-          setLoading(false);
-        });
+          password,
+        }),
+      );
     }
   };
 
@@ -72,7 +74,7 @@ const Register = () => {
     <Navigate to='/login/' />
   ) : (
     <Container>
-      <Title>Crie sua conta</Title>
+      <Title>{userId ? 'Alterar dados da conta' : 'Crie sua conta'}</Title>
       <Form onSubmit={handleSubmit}>
         <FloatingLabel>
           <Input
@@ -112,13 +114,13 @@ const Register = () => {
         <Button
           disabled={
             username.length < 4 ||
-            password.length < 6 ||
+            (!userId && password.length < 6) ||
             !email.includes('@') ||
             !email.includes('.')
           }
           type='submit'
         >
-          {loading ? <Loading /> : 'Criar conta'}
+          {loading ? <Loading /> : userId ? 'Salvar alterações' : 'Criar conta'}
         </Button>
       </Form>
     </Container>
