@@ -28,8 +28,6 @@ const Register = () => {
   const [password, setPassword] = useState('');
   const [username, setUsername] = useState('');
 
-  const [redirectToLogin, setRedirectToLogin] = useState(false);
-
   useEffect(() => {
     if (!userId) return;
 
@@ -70,9 +68,10 @@ const Register = () => {
     }
   };
 
-  return redirectToLogin ? (
-    <Navigate to='/login/' />
-  ) : (
+  return (
+    /*redirectToLogin ?  */
+    //   <Navigate to='/login/' />
+    // ) : (
     <Container>
       <Title>{userId ? 'Alterar dados da conta' : 'Crie sua conta'}</Title>
       <Form onSubmit={handleSubmit}>
