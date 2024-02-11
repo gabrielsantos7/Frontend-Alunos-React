@@ -9,6 +9,7 @@ export default createGlobalStyle`
 
   body {
     font-family: sans-serif;
+    font-size: 1.5rem;
     background-color: ${colors.primaryDarkColor};
     color: ${colors.primaryDarkColor};
   }
@@ -35,7 +36,7 @@ export default createGlobalStyle`
 `;
 
 export const Container = styled.section`
-  max-width: 48rem;
+  max-width: 60rem;
   background: #fff;
   margin: 3rem auto;
   padding: 3rem;
@@ -44,7 +45,8 @@ export const Container = styled.section`
 `;
 
 export const Title = styled.h1`
-  color: ${colors.primaryColor}
+  color: ${colors.primaryColor};
+  font-size: 1.8rem;
 `;
 
 export const Form = styled.form`
