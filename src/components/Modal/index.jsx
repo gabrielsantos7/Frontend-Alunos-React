@@ -9,8 +9,6 @@ import {
   ModalFooter,
   Exclamation,
 } from './styled';
-import axios from '../../services/axios';
-import { toast } from 'react-toastify';
 
 const Modal = ({
   showModal,
