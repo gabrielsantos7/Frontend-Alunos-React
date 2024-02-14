@@ -41,18 +41,6 @@ const Modal = ({
     [setShowModal, showModal],
   );
 
-  const handleDelete = () => {
-    axios
-      .delete(`/alunos/${studentToDelete.id}`)
-      .then(() => {
-        toast.success('Aluno(a) excluído com sucesso!');
-        setShowModal(false);
-      })
-      .catch((errors) => {
-        errors.map((error) => toast.error(error));
-      });
-  };
-
   useEffect(() => {
     document.addEventListener('keydown', keyPress);
     return () => document.removeEventListener('keydown', keyPress);
@@ -80,7 +68,13 @@ const Modal = ({
                 >
                   Voltar
                 </button>
-                <button type='button' onClick={handleConfirmDelete}>
+                <button
+                  type='button'
+                  onClick={() => {
+                    setShowModal(false);
+                    handleConfirmDelete();
+                  }}
+                >
                   Confirmar
                 </button>
               </ModalFooter>

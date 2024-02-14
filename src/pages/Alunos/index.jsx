@@ -29,16 +29,23 @@ const Alunos = () => {
   };
 
   const handleConfirmDelete = () => {
+    setLoading(true);
     axios
       .delete(`/alunos/${studentToDelete.id}`)
       .then(() => {
-        toast.success('Aluno(a) excluído com sucesso!');
+        toast.success('Aluno(a) excluído(a) com sucesso!');
         setShowModal(false);
         setAlunos(alunos.filter((aluno) => aluno.id !== studentToDelete.id));
       })
-      .catch((errors) => {
-        errors.map((error) => toast.error(error));
-      });
+      .catch((error) => {
+        const status = get(error, 'response.status', 0);
+        toast.error(
+          status === 401
+            ? 'Você precisa fazer login para acessar esta funcionalidade.'
+            : 'Ocorreu um erro desconhecido.',
+        );
+      })
+      .finally(setLoading(false));
   };
 
   useEffect(() => {
