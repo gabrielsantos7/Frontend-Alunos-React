@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import * as colors from '../../config/colors';
 
 export const AlunosContainer = styled.div`
   margin-top: 2rem;
@@ -16,6 +17,7 @@ export const AlunosContainer = styled.div`
 `;
 
 export const IconsContainer = styled.div`
+color: ${colors.primaryColor}
 `;
 
 export const ProfilePicture = styled.div`

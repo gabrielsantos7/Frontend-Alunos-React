@@ -8,15 +8,38 @@ import { Container, Title } from '../../styles/GlobalStyles';
 import { AlunosContainer, IconsContainer, ProfilePicture } from './styled';
 import axios from '../../services/axios';
 import SkeletonCard from '../../components/SkeletonCard';
-import Loading from '../../components/Loading';
+import Modal from '../../components/Modal';
 
 const Alunos = () => {
   const [alunos, setAlunos] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [showModal, setShowModal] = useState(false);
+  const [studentToDelete, setStudentToDelete] = useState({
+    id: null,
+    nome: '',
+  });
 
   const skeletonCards = Array.from({ length: 4 }, (_, index) => (
     <SkeletonCard key={index} />
   ));
+
+  const handleDeleteStudent = (id, nome) => {
+    setStudentToDelete({ id, nome });
+    setShowModal(true);
+  };
+
+  const handleConfirmDelete = () => {
+    axios
+      .delete(`/alunos/${studentToDelete.id}`)
+      .then(() => {
+        toast.success('Aluno(a) excluído com sucesso!');
+        setShowModal(false);
+        setAlunos(alunos.filter((aluno) => aluno.id !== studentToDelete.id));
+      })
+      .catch((errors) => {
+        errors.map((error) => toast.error(error));
+      });
+  };
 
   useEffect(() => {
     axios
@@ -32,29 +55,47 @@ const Alunos = () => {
     <Container>
       <Title>Alunos</Title>
       <AlunosContainer>
-        {loading
-          ? skeletonCards
-          : alunos.map((aluno, index) => (
-              <div key={index}>
-                <ProfilePicture>
-                  {get(aluno, 'Fotos[0].url', false) ? (
-                    <img src={aluno.Fotos[0].url} alt='Imagem do Aluno' />
-                  ) : (
-                    <FaUserCircle size={36} />
-                  )}
-                </ProfilePicture>
-                <span>{`${aluno.nome} ${aluno.sobrenome}`}</span>
-                <span>{aluno.email}</span>
-                <IconsContainer>
-                  <Link to={`/alunos/${aluno.id}/edit/`}>
-                    <FaEdit size={16} />
-                  </Link>
-                  <Link to={`/alunos/${aluno.id}/delete/`}>
-                    <FaTrash size={16} />
-                  </Link>
-                </IconsContainer>
-              </div>
-            ))}
+        {loading ? (
+          skeletonCards
+        ) : alunos.length === 0 ? (
+          <h3>Nenhum aluno foi cadastrado ainda!</h3>
+        ) : (
+          alunos.map((aluno, index) => (
+            <div key={index}>
+              <ProfilePicture>
+                {get(aluno, 'Fotos[0].url', false) ? (
+                  <img src={aluno.Fotos[0].url} alt='Imagem do Aluno' />
+                ) : (
+                  <FaUserCircle size={36} />
+                )}
+              </ProfilePicture>
+              <span>{`${aluno.nome} ${aluno.sobrenome}`}</span>
+              <span>{aluno.email}</span>
+              <IconsContainer>
+                <Link to={`/alunos/${aluno.id}/edit/`}>
+                  <FaEdit size={16} />
+                </Link>
+
+                <FaTrash
+                  size={16}
+                  cursor='pointer'
+                  onClick={() =>
+                    handleDeleteStudent(
+                      aluno.id,
+                      `${aluno.nome} ${aluno.sobrenome}`,
+                    )
+                  }
+                />
+              </IconsContainer>
+            </div>
+          ))
+        )}
+        <Modal
+          showModal={showModal}
+          setShowModal={setShowModal}
+          studentToDelete={studentToDelete}
+          handleConfirmDelete={handleConfirmDelete}
+        />
       </AlunosContainer>
     </Container>
   );
