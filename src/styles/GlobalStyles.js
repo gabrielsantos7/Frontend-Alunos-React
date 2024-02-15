@@ -54,12 +54,13 @@ export const Form = styled.form`
   flex-direction: column;
   align-items: center;
   margin: 3rem auto;
-  width: 36rem;
+  width: 52rem;
+  gap: 1rem;
 `;
 
 export const FloatingLabel = styled.div`
   position: relative;
-  margin-bottom: 3.5rem;
+  margin-bottom: 2rem;
   width: 100%;
 `;
 
@@ -105,6 +106,7 @@ export const Button = styled.button`
   padding: 1rem 2rem;
   border-radius: 0.4rem;
   font-weight: 700;
+  font-size: 1.7rem;
   transition: filter 0.3s ease;
 
   &:hover {
@@ -119,5 +121,15 @@ export const Button = styled.button`
     &:hover {
       filter: none;
     }
+  }
+`;
+
+export const Row = styled.div`
+  width: 100%;
+  display: flex;
+  gap: 1rem;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
   }
 `;
