@@ -8,6 +8,7 @@ import axios from '../../services/axios';
 import Loading from '../../components/Loading';
 import { Container, Title, Button, Form, Row } from '../../styles/GlobalStyles';
 import { Input } from './styled';
+import SkeletonForm from '../../components/SkeletonForm';
 
 const Aluno = () => {
   const { id } = useParams();
@@ -69,56 +70,60 @@ const Aluno = () => {
       <Title>{id ? `Editar aluno ${id}` : 'Criar novo aluno'}</Title>
       <p>Preencha os campos abaixo.</p>
 
-      <Form onSubmit={handleSubmit}>
-        <Row>
-          <Input
-            required
-            type='text'
-            placeholder='Nome'
-            value={nome}
-            onChange={(e) => setNome(e.target.value)}
-          />
-          <Input
-            required
-            type='text'
-            placeholder='Sobrenome'
-            value={sobrenome}
-            onChange={(e) => setSobrenome(e.target.value)}
-          />
-        </Row>
+      {loading ? (
+        <SkeletonForm />
+      ) : (
+        <Form onSubmit={handleSubmit}>
+          <Row>
+            <Input
+              required
+              type='text'
+              placeholder='Nome'
+              value={nome}
+              onChange={(e) => setNome(e.target.value)}
+            />
+            <Input
+              required
+              type='text'
+              placeholder='Sobrenome'
+              value={sobrenome}
+              onChange={(e) => setSobrenome(e.target.value)}
+            />
+          </Row>
 
-        <Input
-          required
-          type='email'
-          placeholder='Email'
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <Row>
           <Input
             required
-            type='number'
-            placeholder='Idade'
-            value={idade}
-            onChange={(e) => setIdade(e.target.value)}
+            type='email'
+            placeholder='Email'
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
-          <Input
-            required
-            type='number'
-            placeholder='Peso'
-            value={peso}
-            onChange={(e) => setPeso(e.target.value)}
-          />
-          <Input
-            required
-            type='number'
-            placeholder='Altura'
-            value={altura}
-            onChange={(e) => setAltura(e.target.value)}
-          />
-        </Row>
-        <Button type='submit'>Enviar</Button>
-      </Form>
+          <Row>
+            <Input
+              required
+              type='number'
+              placeholder='Idade'
+              value={idade}
+              onChange={(e) => setIdade(e.target.value)}
+            />
+            <Input
+              required
+              type='number'
+              placeholder='Peso'
+              value={peso}
+              onChange={(e) => setPeso(e.target.value)}
+            />
+            <Input
+              required
+              type='number'
+              placeholder='Altura'
+              value={altura}
+              onChange={(e) => setAltura(e.target.value)}
+            />
+          </Row>
+          <Button type='submit'>Enviar</Button>
+        </Form>
+      )}
     </Container>
   );
 };
