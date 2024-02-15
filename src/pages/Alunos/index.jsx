@@ -2,10 +2,15 @@ import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { get } from 'lodash';
 import { Link } from 'react-router-dom';
-import { FaUserCircle, FaEdit, FaTrash } from 'react-icons/fa';
+import { FaUserCircle, FaEdit, FaTrash, FaPlus } from 'react-icons/fa';
 
 import { Container, Title } from '../../styles/GlobalStyles';
-import { AlunosContainer, IconsContainer, ProfilePicture } from './styled';
+import {
+  AlunosContainer,
+  CreateLink,
+  IconsContainer,
+  ProfilePicture,
+} from './styled';
 import axios from '../../services/axios';
 import SkeletonCard from '../../components/SkeletonCard';
 import Modal from '../../components/Modal';
@@ -61,6 +66,10 @@ const Alunos = () => {
   return (
     <Container>
       <Title>Alunos</Title>
+      <CreateLink to='/alunos/'>
+        <FaPlus />
+        Cadastrar novo aluno
+      </CreateLink>
       <AlunosContainer>
         {loading ? (
           skeletonCards
@@ -79,7 +88,7 @@ const Alunos = () => {
               <span>{`${aluno.nome} ${aluno.sobrenome}`}</span>
               <span>{aluno.email}</span>
               <IconsContainer>
-                <Link to={`/alunos/${aluno.id}/edit/`}>
+                <Link to={`/alunos/${aluno.id}/`}>
                   <FaEdit size={16} />
                 </Link>
 

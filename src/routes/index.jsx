@@ -28,7 +28,7 @@ const AppRoutes = () => {
             <Route path='/register/' element={<Register />} />
             <Route path='/login/' element={<Login />} />
             <Route
-              path='/alunos/:id/edit/'
+              path='/alunos/:id/'
               element={
                 <PrivateRoute>
                   <Aluno />
@@ -36,7 +36,7 @@ const AppRoutes = () => {
               }
             />
             <Route
-              path='/aluno/novo/'
+              path='/alunos/'
               element={
                 <PrivateRoute>
                   <Aluno />
@@ -44,7 +44,7 @@ const AppRoutes = () => {
               }
             />
             <Route
-              path='/aluno/:id/fotos/'
+              path='/alunos/:id/fotos/'
               element={
                 <PrivateRoute>
                   <Fotos />
