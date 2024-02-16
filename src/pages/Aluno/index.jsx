@@ -2,6 +2,7 @@ import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import { isEmail, isInt, isFloat } from 'validator';
+import { get } from 'lodash';
 
 import axios from '../../services/axios';
 
@@ -63,6 +64,23 @@ const Aluno = () => {
 
   useEffect(() => {
     if (!id) return;
+    setLoading(true);
+    axios
+      .get(`/alunos/${id}`)
+      .then((response) => {
+        const aluno = response.data;
+        const foto = get(aluno, 'Fotos[0].url', '');
+        setNome(aluno.nome);
+        setSobrenome(aluno.sobrenome);
+        setEmail(aluno.email);
+        setIdade(aluno.idade);
+        setAltura(aluno.altura);
+        setPeso(aluno.peso);
+      })
+      .catch(() => {
+        toast.error('Erro ao carregar alunos. Por favor, tente novamente.');
+      })
+      .finally(() => setLoading(false));
   }, [id]);
 
   return (
@@ -75,6 +93,7 @@ const Aluno = () => {
       ) : (
         <Form onSubmit={handleSubmit}>
           <Row>
+            {/* TODO: Add placeholders */}
             <Input
               required
               type='text'
