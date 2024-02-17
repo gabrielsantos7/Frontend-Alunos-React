@@ -1,16 +1,18 @@
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import { isEmail, isInt, isFloat } from 'validator';
 import { get } from 'lodash';
+import { FaEdit, FaUserCircle } from 'react-icons/fa';
+import { IoMdAddCircle } from 'react-icons/io';
 
 import axios from '../../services/axios';
 import * as actions from '../../store/modules/auth/actions';
 
 import Loading from '../../components/Loading';
 import { Container, Title, Button, Form, Row } from '../../styles/GlobalStyles';
-import { Input } from './styled';
+import { Input, ProfilePicture } from './styled';
 import SkeletonForm from '../../components/SkeletonForm';
 
 const Aluno = () => {
@@ -22,6 +24,7 @@ const Aluno = () => {
   const [nome, setNome] = useState('');
   const [sobrenome, setSobrenome] = useState('');
   const [email, setEmail] = useState('');
+  const [foto, setFoto] = useState('');
   const [idade, setIdade] = useState('');
   const [peso, setPeso] = useState('');
   const [altura, setAltura] = useState('');
@@ -116,12 +119,13 @@ const Aluno = () => {
       .get(`/alunos/${id}`)
       .then((response) => {
         const aluno = response.data;
-        const foto = get(aluno, 'Fotos[0].url', '');
+        const studentPhoto = get(aluno, 'Fotos[0].url', '');
         setNome(aluno.nome);
         setSobrenome(aluno.sobrenome);
         setEmail(aluno.email);
         setIdade(aluno.idade);
         setAltura(aluno.altura);
+        setFoto(studentPhoto);
         setPeso(aluno.peso);
       })
       .catch((error) => {
@@ -144,80 +148,100 @@ const Aluno = () => {
       {loadingPage ? (
         <SkeletonForm />
       ) : (
-        <Form onSubmit={handleSubmit}>
-          <Row>
-            <div>
-              <label htmlFor='nome'>Nome:</label>
-              <Input
-                required
-                type='text'
-                placeholder='Nome'
-                id='nome'
-                value={nome}
-                onChange={(e) => setNome(e.target.value)}
-              />
-            </div>
-            <div>
-              <label htmlFor='sobrenome'>Sobrenome:</label>
-              <Input
-                required
-                type='text'
-                placeholder='Sobrenome'
-                id='sobrenome'
-                value={sobrenome}
-                onChange={(e) => setSobrenome(e.target.value)}
-              />
-            </div>
-          </Row>
+        <>
+          {id && (
+            <ProfilePicture>
+              {foto ? (
+                <img src={foto} alt={`${nome} ${sobrenome}`} />
+              ) : (
+                <FaUserCircle color='#CCC' />
+              )}
+              <Link to={`/alunos/${id}/fotos`}>
+                {foto ? (
+                  <FaEdit color='#CCC' size={32} />
+                ) : (
+                  <IoMdAddCircle size={36} />
+                )}
+              </Link>
+            </ProfilePicture>
+          )}
+          <Form onSubmit={handleSubmit}>
+            <Row>
+              <div>
+                <label htmlFor='nome'>Nome:</label>
+                <Input
+                  required
+                  type='text'
+                  placeholder='Nome'
+                  id='nome'
+                  value={nome}
+                  onChange={(e) => setNome(e.target.value)}
+                />
+              </div>
+              <div>
+                <label htmlFor='sobrenome'>Sobrenome:</label>
+                <Input
+                  required
+                  type='text'
+                  placeholder='Sobrenome'
+                  id='sobrenome'
+                  value={sobrenome}
+                  onChange={(e) => setSobrenome(e.target.value)}
+                />
+              </div>
+            </Row>
 
-          <div style={{ width: '100%' }}>
-            <label htmlFor='email'>Email:</label>
-            <Input
-              required
-              type='email'
-              placeholder='Email'
-              id='email'
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </div>
-          <Row>
-            <div>
-              <label htmlFor='idade'>Idade:</label>
+            <div style={{ width: '100%' }}>
+              <label htmlFor='email'>Email:</label>
               <Input
                 required
-                type='number'
-                placeholder='Idade'
-                id='idade'
-                value={idade}
-                onChange={(e) => setIdade(e.target.value)}
+                type='email'
+                placeholder='Email'
+                id='email'
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
             </div>
-            <div>
-              <label htmlFor='peso'>Peso:</label>
-              <Input
-                required
-                type='number'
-                placeholder='Peso'
-                id='peso'
-                value={peso}
-                onChange={(e) => setPeso(e.target.value)}
-              />
-            </div>
-            <div>
-              <label htmlFor='altura'>Altura:</label>
-              <Input
-                required
-                type='number'
-                placeholder='Altura'
-                id='altura'
-                value={altura}
-                onChange={(e) => setAltura(e.target.value)}
-              />
-            </div>
-          </Row>
-          <Button type='submit'>{loadingForm ? <Loading /> : 'Enviar'}</Button>
-        </Form>
+            <Row>
+              <div>
+                <label htmlFor='idade'>Idade:</label>
+                <Input
+                  required
+                  type='number'
+                  placeholder='Idade'
+                  id='idade'
+                  value={idade}
+                  onChange={(e) => setIdade(e.target.value)}
+                />
+              </div>
+              <div>
+                <label htmlFor='peso'>Peso:</label>
+                <Input
+                  required
+                  type='number'
+                  placeholder='Peso'
+                  id='peso'
+                  value={peso}
+                  onChange={(e) => setPeso(e.target.value)}
+                />
+              </div>
+              <div>
+                <label htmlFor='altura'>Altura:</label>
+                <Input
+                  required
+                  type='number'
+                  placeholder='Altura'
+                  id='altura'
+                  value={altura}
+                  onChange={(e) => setAltura(e.target.value)}
+                />
+              </div>
+            </Row>
+            <Button type='submit'>
+              {loadingForm ? <Loading /> : 'Enviar'}
+            </Button>
+          </Form>
+        </>
       )}
     </Container>
   );
