@@ -88,7 +88,7 @@ const Alunos = () => {
               <span>{`${aluno.nome} ${aluno.sobrenome}`}</span>
               <span>{aluno.email}</span>
               <IconsContainer>
-                <Link to={`/alunos/${aluno.id}/`}>
+                <Link to={`/alunos/${aluno.id}/edit/`}>
                   <FaEdit size={16} />
                 </Link>
 
