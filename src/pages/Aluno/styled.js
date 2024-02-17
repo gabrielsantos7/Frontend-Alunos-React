@@ -19,7 +19,7 @@ export const Input = styled.input`
 export const ProfilePicture = styled.div`
   width: 15rem;
   height: 15rem;
-  margin: 0 auto;
+  margin: 2rem auto;
   position: relative;
   overflow: hidden;
 

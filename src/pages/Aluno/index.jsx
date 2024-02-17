@@ -143,7 +143,9 @@ const Aluno = () => {
 
   return (
     <Container>
-      <Title>{id && nome ? `Editar aluno #${id}` : 'Criar novo aluno'}</Title>
+      <Title $center>
+        {id && nome ? `Editar aluno #${id}` : 'Cadastrar novo aluno'}
+      </Title>
 
       {loadingPage ? (
         <SkeletonForm />
@@ -238,7 +240,7 @@ const Aluno = () => {
               </div>
             </Row>
             <Button type='submit'>
-              {loadingForm ? <Loading /> : 'Enviar'}
+              {loadingForm ? <Loading /> : 'Cadastrar'}
             </Button>
           </Form>
         </>

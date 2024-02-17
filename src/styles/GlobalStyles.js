@@ -8,7 +8,7 @@ export default createGlobalStyle`
   }
 
   body {
-    font-family: sans-serif;
+    font-family: 'Roboto', sans-serif;
     font-size: 1.5rem;
     background-color: ${colors.primaryDarkColor};
     color: ${colors.primaryDarkColor};
@@ -38,8 +38,8 @@ export default createGlobalStyle`
 export const Container = styled.section`
   max-width: 60rem;
   background: #fff;
-  margin: 3rem auto;
-  padding: 3rem;
+  margin: 2rem auto;
+  padding: 2rem;
   border-radius: 0.4rem;
   box-shadow: 0 0 1rem rgba(0,0,0, 0.1);
 `;
@@ -47,13 +47,16 @@ export const Container = styled.section`
 export const Title = styled.h1`
   color: ${colors.primaryColor};
   font-size: 1.8rem;
+  text-align: ${(props) => (props.$center ? 'center' : 'left')};
+  font-family: 'Montserrat', sans-serif;
+  font-weight: bold;
 `;
 
 export const Form = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 3rem auto;
+  margin: 2rem auto;
   width: 52rem;
   gap: 1rem;
 `;
@@ -93,7 +96,7 @@ export const Label = styled.label`
   left: 0.5rem;
   bottom: 0.75rem;
   color: ${colors.disabledDarkColor};
-  font-size: 1.25rem;
+  font-size: 1.4rem;
   transition: transform 0.3s ease, color 0.3s ease;
 `;
 
