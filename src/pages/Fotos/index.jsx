@@ -8,13 +8,15 @@ import axios from '../../services/axios';
 import * as actions from '../../store/modules/auth/actions';
 
 import { Container, Title, Button } from '../../styles/GlobalStyles';
-import { ButtonLink, Buttons, Form } from './styled';
+import { ButtonLink, Buttons, Form, GalleryContainer } from './styled';
 import Loading from '../../components/Loading';
 
 const Photos = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
+  const [aluno, setAluno] = useState({});
   const [photo, setPhoto] = useState('');
+  const [gallery, setGallery] = useState([]);
   const [loadingPage, setLoadingPage] = useState(false);
   const [loadingForm, setLoadingForm] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
@@ -40,11 +42,14 @@ const Photos = () => {
 
     try {
       setLoadingForm(true);
-      await axios.post('/photos/', formData, {
+      const response = await axios.post('/photos/', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
       });
+      const newPhoto = response.data;
+      setGallery([newPhoto, ...gallery]);
+      setSelectedFile(null);
       toast.success('Foto enviada com sucesso!');
     } catch (error) {
       const status = get(error, 'response.status', 0);
@@ -71,9 +76,11 @@ const Photos = () => {
     axios
       .get(`/alunos/${id}`)
       .then((response) => {
-        const aluno = response.data;
+        const alunoResponse = response.data;
         const studentPhoto = get(aluno, 'Fotos[0].url', '');
+        setAluno(alunoResponse);
         setPhoto(studentPhoto);
+        setGallery(alunoResponse.Fotos);
       })
       .catch((error) => {
         const status = get(error, 'response.status', 0);
@@ -86,11 +93,11 @@ const Photos = () => {
         }
       })
       .finally(() => setLoadingPage(false));
-  }, [id]);
+  }, [id, aluno]);
 
   return (
     <Container>
-      <Title>Fotos de {id}</Title>
+      <Title>Fotos de {`${aluno.nome} ${aluno.sobrenome}`}</Title>
 
       <Form onSubmit={handleSubmit}>
         <label htmlFor='foto'>
@@ -105,9 +112,19 @@ const Photos = () => {
             </Button>
           </Buttons>
         ) : (
-          'Clique na imagem para escolher outra foto.'
+          'Clique na imagem acima para fazer upload de outra foto.'
         )}
       </Form>
+
+      <div>
+        <h3>Galeria</h3>
+
+        <GalleryContainer>
+          {gallery.map((photo, index) => (
+            <img key={index} src={photo.url} alt='Imagem do Aluno' />
+          ))}
+        </GalleryContainer>
+      </div>
     </Container>
   );
 };

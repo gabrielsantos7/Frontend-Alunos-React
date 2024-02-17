@@ -24,6 +24,11 @@ export const Form = styled.form`
     border: 5px dashed ${colors.disabledDarkColor};
     margin: 3rem auto;
     overflow: hidden;
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+      border-color: ${colors.primaryColor};
+    }
 
     img {
       width: 18rem;
@@ -45,4 +50,23 @@ export const ButtonLink = styled(Link)`
   color: ${colors.disabledDarkColor};
   padding: 1rem 2rem;
   border-radius: 5px;
+`;
+
+export const GalleryContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  padding: 3rem 0;
+  img {
+    height: 12rem;
+    width: auto;
+
+    &:first-child {
+      border: 2px solid ${colors.primaryColor};
+    }
+  }
+
 `;
