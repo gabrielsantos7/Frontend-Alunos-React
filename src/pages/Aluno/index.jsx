@@ -146,7 +146,6 @@ const Aluno = () => {
       <Title $center>
         {id && nome ? `Editar aluno #${id}` : 'Cadastrar novo aluno'}
       </Title>
-
       {loadingPage ? (
         <SkeletonForm />
       ) : (
@@ -168,7 +167,7 @@ const Aluno = () => {
             </ProfilePicture>
           )}
           <Form onSubmit={handleSubmit}>
-            <Row>
+            <Row spacing={0}>
               <div>
                 <label htmlFor='nome'>Nome:</label>
                 <Input
@@ -204,7 +203,7 @@ const Aluno = () => {
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
-            <Row>
+            <Row spacing={0}>
               <div>
                 <label htmlFor='idade'>Idade:</label>
                 <Input

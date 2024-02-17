@@ -130,6 +130,9 @@ export const Button = styled.button`
 export const Row = styled.div`
   width: 100%;
   display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: ${(props) => (props.spacing ? props.spacing : '0')}rem 0;
   gap: 1rem;
 
   @media (max-width: 768px) {
