@@ -66,7 +66,7 @@ const Alunos = () => {
   return (
     <Container>
       <Title>Alunos</Title>
-      <CreateLink to='/alunos/'>
+      <CreateLink to='/alunos/novo'>
         <FaPlus />
         Cadastrar novo aluno
       </CreateLink>

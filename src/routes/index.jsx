@@ -36,7 +36,7 @@ const AppRoutes = () => {
               }
             />
             <Route
-              path='/alunos/'
+              path='/alunos/novo/'
               element={
                 <PrivateRoute>
                   <Aluno />
