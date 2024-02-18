@@ -11,6 +11,7 @@ import { Container, Title, Button, Subtitle } from '../../styles/GlobalStyles';
 import { ButtonLink, Buttons, Form, GalleryContainer, Small } from './styled';
 import Loading from '../../components/Loading';
 import { primaryColor } from '../../config/colors';
+import SkeletonPhoto from '../../components/SkeletonPhoto';
 
 const Photos = () => {
   const { id } = useParams();
@@ -109,57 +110,68 @@ const Photos = () => {
 
   return (
     <Container>
-      <Title>Fotos de {nome}</Title>
-
-      <Form onSubmit={handleSubmit}>
-        <label htmlFor='foto'>
-          {photo ? <img src={photo} alt='Foto' /> : 'Selecionar'}
-          <input type='file' onChange={handleChange} id='foto' name='foto' />
-        </label>
-        {selectedFile ? (
-          <>
-            <Buttons>
-              <ButtonLink to={`/alunos/${id}/edit`}>Cancelar</ButtonLink>
-              <Button type='submit'>
-                {loadingForm ? <Loading /> : 'Salvar Foto'}
-              </Button>
-            </Buttons>
-            <p>
-              Preferencialmente, escolha uma foto quadrada para não distorcer as
-              proporcões da imagem.
-            </p>
-          </>
-        ) : (
-          <p>Clique na imagem acima para fazer upload de outra foto.</p>
-        )}
-      </Form>
-
-      {gallery.length === 0 ? (
-        <Small>Nenhuma foto foi enviada ainda.</Small>
+      {loadingPage ? (
+        <SkeletonPhoto />
       ) : (
-        <div style={{ paddingTop: '2rem' }}>
-          <Subtitle>Galeria de fotos salvas</Subtitle>
+        <>
+          <Title>Fotos de {nome}</Title>
 
-          <GalleryContainer>
-            {gallery.map((photo, index) => (
-              <img
-                key={index}
-                src={photo.url}
-                alt={nome}
-                style={{
-                  boxShadow:
-                    selectedImageIndex === index
-                      ? `0 0 0 3px ${primaryColor}, 0 0 0 3px ${primaryColor}, 0 0 0 3px ${primaryColor}, 0 0 0 3px ${primaryColor}`
-                      : 'none',
-                }}
-                onClick={() => {
-                  handleImageChange(index);
-                  setPhoto(photo.url);
-                }}
+          <Form onSubmit={handleSubmit}>
+            <label htmlFor='foto'>
+              {photo ? <img src={photo} alt='Foto' /> : 'Selecionar'}
+              <input
+                type='file'
+                onChange={handleChange}
+                id='foto'
+                name='foto'
               />
-            ))}
-          </GalleryContainer>
-        </div>
+            </label>
+            {selectedFile ? (
+              <>
+                <Buttons>
+                  <ButtonLink to={`/alunos/${id}/edit`}>Cancelar</ButtonLink>
+                  <Button type='submit'>
+                    {loadingForm ? <Loading /> : 'Salvar Foto'}
+                  </Button>
+                </Buttons>
+                <p>
+                  Preferencialmente, escolha uma foto quadrada para não
+                  distorcer as proporcões da imagem.
+                </p>
+              </>
+            ) : (
+              <p>Clique na imagem acima para fazer upload de outra foto.</p>
+            )}
+          </Form>
+
+          {gallery.length === 0 ? (
+            <Small>Nenhuma foto foi enviada ainda.</Small>
+          ) : (
+            <div style={{ paddingTop: '2rem' }}>
+              <Subtitle>Galeria de fotos salvas</Subtitle>
+
+              <GalleryContainer>
+                {gallery.map((photo, index) => (
+                  <img
+                    key={index}
+                    src={photo.url}
+                    alt={nome}
+                    style={{
+                      boxShadow:
+                        selectedImageIndex === index
+                          ? `0 0 0 3px ${primaryColor}, 0 0 0 3px ${primaryColor}, 0 0 0 3px ${primaryColor}, 0 0 0 3px ${primaryColor}`
+                          : 'none',
+                    }}
+                    onClick={() => {
+                      handleImageChange(index);
+                      setPhoto(photo.url);
+                    }}
+                  />
+                ))}
+              </GalleryContainer>
+            </div>
+          )}
+        </>
       )}
     </Container>
   );
