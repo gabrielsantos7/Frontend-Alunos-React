@@ -27,14 +27,21 @@ export const Form = styled.form`
     transition: all 0.2s ease-in-out;
 
     &:hover {
-      border-color: ${colors.primaryColor};
+      border-color: ${colors.successColor};
     }
 
     img {
       width: 18rem;
-      height: 18rem;
+      aspect-ratio: 1/1;
+      object-fit: cover;
     }
   }
+`;
+
+export const Small = styled.p`
+font-size: 1.4rem;
+padding-top: 2rem;
+text-align: center;
 `;
 
 export const Buttons = styled.div`
@@ -42,6 +49,7 @@ export const Buttons = styled.div`
   grid-template-columns: 1fr 1fr;
   place-items: center;
   gap: 2rem;
+  margin-bottom: 2rem;
 `;
 
 export const ButtonLink = styled(Link)`
@@ -50,6 +58,11 @@ export const ButtonLink = styled(Link)`
   color: ${colors.disabledDarkColor};
   padding: 1rem 2rem;
   border-radius: 5px;
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    filter: brightness(80%);
+  }
 `;
 
 export const GalleryContainer = styled.div`
@@ -62,11 +75,9 @@ export const GalleryContainer = styled.div`
   padding: 3rem 0;
   img {
     height: 12rem;
-    width: auto;
-
-    &:first-child {
-      border: 2px solid ${colors.primaryColor};
-    }
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    cursor: pointer;
   }
 
 `;

@@ -52,6 +52,13 @@ export const Title = styled.h1`
   font-weight: bold;
 `;
 
+export const Subtitle = styled.h3`
+  color: ${colors.primaryColor};
+  font-size: 1.6rem;
+  text-align: ${(props) => (props.$center ? 'center' : 'left')};
+  font-family: 'Montserrat', sans-serif;
+`;
+
 export const Form = styled.form`
   display: flex;
   flex-direction: column;

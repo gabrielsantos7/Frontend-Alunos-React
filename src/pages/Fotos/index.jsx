@@ -7,16 +7,18 @@ import { toast } from 'react-toastify';
 import axios from '../../services/axios';
 import * as actions from '../../store/modules/auth/actions';
 
-import { Container, Title, Button } from '../../styles/GlobalStyles';
-import { ButtonLink, Buttons, Form, GalleryContainer } from './styled';
+import { Container, Title, Button, Subtitle } from '../../styles/GlobalStyles';
+import { ButtonLink, Buttons, Form, GalleryContainer, Small } from './styled';
 import Loading from '../../components/Loading';
+import { primaryColor } from '../../config/colors';
 
 const Photos = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
-  const [aluno, setAluno] = useState({});
+  const [nome, setNome] = useState('');
   const [photo, setPhoto] = useState('');
   const [gallery, setGallery] = useState([]);
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [loadingPage, setLoadingPage] = useState(false);
   const [loadingForm, setLoadingForm] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
@@ -71,16 +73,26 @@ const Photos = () => {
     }
   };
 
+  const handleImageChange = (index) => {
+    if (selectedImageIndex === index) {
+      setSelectedImageIndex(null);
+    } else {
+      setSelectedImageIndex(index);
+    }
+    setSelectedFile(null);
+    setPhoto('');
+  };
+
   useEffect(() => {
     setLoadingPage(true);
     axios
       .get(`/alunos/${id}`)
       .then((response) => {
         const alunoResponse = response.data;
-        const studentPhoto = get(aluno, 'Fotos[0].url', '');
-        setAluno(alunoResponse);
+        const studentPhoto = get(alunoResponse, 'Fotos[0].url', '');
         setPhoto(studentPhoto);
         setGallery(alunoResponse.Fotos);
+        setNome(`${alunoResponse.nome} ${alunoResponse.sobrenome}`);
       })
       .catch((error) => {
         const status = get(error, 'response.status', 0);
@@ -93,11 +105,11 @@ const Photos = () => {
         }
       })
       .finally(() => setLoadingPage(false));
-  }, [id, aluno]);
+  }, [id]);
 
   return (
     <Container>
-      <Title>Fotos de {`${aluno.nome} ${aluno.sobrenome}`}</Title>
+      <Title>Fotos de {nome}</Title>
 
       <Form onSubmit={handleSubmit}>
         <label htmlFor='foto'>
@@ -105,26 +117,50 @@ const Photos = () => {
           <input type='file' onChange={handleChange} id='foto' name='foto' />
         </label>
         {selectedFile ? (
-          <Buttons>
-            <ButtonLink to={`/alunos/${id}/edit`}>Cancelar</ButtonLink>
-            <Button type='submit'>
-              {loadingForm ? <Loading /> : 'Salvar Foto'}
-            </Button>
-          </Buttons>
+          <>
+            <Buttons>
+              <ButtonLink to={`/alunos/${id}/edit`}>Cancelar</ButtonLink>
+              <Button type='submit'>
+                {loadingForm ? <Loading /> : 'Salvar Foto'}
+              </Button>
+            </Buttons>
+            <p>
+              Preferencialmente, escolha uma foto quadrada para não distorcer as
+              proporcões da imagem.
+            </p>
+          </>
         ) : (
-          'Clique na imagem acima para fazer upload de outra foto.'
+          <p>Clique na imagem acima para fazer upload de outra foto.</p>
         )}
       </Form>
 
-      <div>
-        <h3>Galeria</h3>
+      {gallery.length === 0 ? (
+        <Small>Nenhuma foto foi enviada ainda.</Small>
+      ) : (
+        <div style={{ paddingTop: '2rem' }}>
+          <Subtitle>Galeria de fotos salvas</Subtitle>
 
-        <GalleryContainer>
-          {gallery.map((photo, index) => (
-            <img key={index} src={photo.url} alt='Imagem do Aluno' />
-          ))}
-        </GalleryContainer>
-      </div>
+          <GalleryContainer>
+            {gallery.map((photo, index) => (
+              <img
+                key={index}
+                src={photo.url}
+                alt={nome}
+                style={{
+                  boxShadow:
+                    selectedImageIndex === index
+                      ? `0 0 0 3px ${primaryColor}, 0 0 0 3px ${primaryColor}, 0 0 0 3px ${primaryColor}, 0 0 0 3px ${primaryColor}`
+                      : 'none',
+                }}
+                onClick={() => {
+                  handleImageChange(index);
+                  setPhoto(photo.url);
+                }}
+              />
+            ))}
+          </GalleryContainer>
+        </div>
+      )}
     </Container>
   );
 };

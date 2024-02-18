@@ -1,3 +1,5 @@
+// TODO: Delete User account
+// TODO: Correct infinite Loop
 import { useParams, Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
