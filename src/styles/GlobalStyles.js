@@ -59,6 +59,20 @@ export const Subtitle = styled.h3`
   font-family: 'Montserrat', sans-serif;
 `;
 
+export const Input = styled.input`
+  width: 100%;
+  padding: 1rem;
+  outline: none;
+  border: 2px solid ${colors.disabledLightColor};
+  transition: border-color 0.3s ease;
+  font-size: 1.5rem;
+  border-radius: 5px;
+
+  &:focus {
+    border-color: ${colors.primaryColor};
+  }
+`;
+
 export const Form = styled.form`
   display: flex;
   flex-direction: column;
@@ -74,7 +88,7 @@ export const FloatingLabel = styled.div`
   width: 100%;
 `;
 
-export const Input = styled.input`
+export const FloatingInput = styled.input`
   width: 100%;
   padding: 0.5rem;
   border: none;
@@ -137,7 +151,7 @@ export const Button = styled.button`
 export const Row = styled.div`
   width: 100%;
   display: flex;
-  justify-content: center;
+  justify-content: ${(props) => (props.$justify ? props.$justify : 'center')};
   align-items: center;
   margin: ${(props) => (props.spacing ? props.spacing : '0')}rem 0;
   gap: 1rem;

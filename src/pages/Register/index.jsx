@@ -10,7 +10,7 @@ import {
   Title,
   Button,
   FloatingLabel,
-  Input,
+  FloatingInput,
   Label,
   Form,
 } from '../../styles/GlobalStyles';
@@ -76,7 +76,7 @@ const Register = () => {
       <Title>{userId ? 'Alterar dados da conta' : 'Crie sua conta'}</Title>
       <Form onSubmit={handleSubmit}>
         <FloatingLabel>
-          <Input
+          <FloatingInput
             type='text'
             id='username'
             autoComplete='name'
@@ -88,7 +88,7 @@ const Register = () => {
         </FloatingLabel>
 
         <FloatingLabel>
-          <Input
+          <FloatingInput
             type='email'
             id='email'
             autoComplete='email'
@@ -100,7 +100,7 @@ const Register = () => {
         </FloatingLabel>
 
         <FloatingLabel>
-          <Input
+          <FloatingInput
             type='password'
             id='password'
             autoComplete='new-password'

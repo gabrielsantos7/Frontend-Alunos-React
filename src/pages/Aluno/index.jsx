@@ -1,5 +1,4 @@
 // TODO: Delete User account
-// TODO: Correct infinite Loop
 import { useParams, Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
@@ -13,8 +12,15 @@ import axios from '../../services/axios';
 import * as actions from '../../store/modules/auth/actions';
 
 import Loading from '../../components/Loading';
-import { Container, Title, Button, Form, Row } from '../../styles/GlobalStyles';
-import { Input, ProfilePicture } from './styled';
+import {
+  Container,
+  Title,
+  Button,
+  Form,
+  Row,
+  Input,
+} from '../../styles/GlobalStyles';
+import { ProfilePicture } from './styled';
 import SkeletonForm from '../../components/SkeletonForm';
 
 const Aluno = () => {

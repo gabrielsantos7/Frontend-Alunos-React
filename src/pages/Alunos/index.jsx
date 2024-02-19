@@ -4,7 +4,13 @@ import { get } from 'lodash';
 import { Link } from 'react-router-dom';
 import { FaUserCircle, FaEdit, FaTrash, FaPlus } from 'react-icons/fa';
 
-import { Container, Title } from '../../styles/GlobalStyles';
+import {
+  Container,
+  Row,
+  Title,
+  Subtitle,
+  Input,
+} from '../../styles/GlobalStyles';
 import {
   AlunosContainer,
   CreateLink,
@@ -17,6 +23,8 @@ import Modal from '../../components/Modal';
 
 const Alunos = () => {
   const [alunos, setAlunos] = useState([]);
+  const [filteredAlunos, setFilteredAlunos] = useState([]);
+  const [search, setSearch] = useState('');
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
   const [studentToDelete, setStudentToDelete] = useState({
@@ -27,6 +35,17 @@ const Alunos = () => {
   const skeletonCards = Array.from({ length: 4 }, (_, index) => (
     <SkeletonCard key={index} />
   ));
+
+  const handleSearch = (event) => {
+    const searchText = event.target.value;
+    setSearch(searchText);
+    setFilteredAlunos(
+      alunos.filter((aluno) => {
+        const fullName = `${aluno.nome.toLowerCase()} ${aluno.sobrenome.toLowerCase()}`;
+        return fullName.includes(searchText.toLowerCase());
+      }),
+    );
+  };
 
   const handleDeleteStudent = (id, nome) => {
     setStudentToDelete({ id, nome });
@@ -56,7 +75,10 @@ const Alunos = () => {
   useEffect(() => {
     axios
       .get('/alunos/')
-      .then((response) => setAlunos(response.data))
+      .then((response) => {
+        setAlunos(response.data);
+        setFilteredAlunos(response.data);
+      })
       .catch(() => {
         toast.error('Erro ao carregar alunos. Por favor, tente novamente.');
       })
@@ -65,18 +87,30 @@ const Alunos = () => {
 
   return (
     <Container>
-      <Title>Alunos</Title>
-      <CreateLink to='/alunos/novo'>
-        <FaPlus />
-        Cadastrar novo aluno
-      </CreateLink>
+      <Row $justify='space-between'>
+        <Title>Alunos</Title>
+        <CreateLink to='/alunos/novo'>
+          <FaPlus />
+          Cadastrar novo aluno
+        </CreateLink>
+      </Row>
+      <Row spacing={2}>
+        <Input
+          type='search'
+          name='search'
+          id='search'
+          placeholder='Pesquisar aluno pelo nome....'
+          value={search}
+          onChange={handleSearch}
+        />
+      </Row>
       <AlunosContainer>
         {loading ? (
           skeletonCards
         ) : alunos.length === 0 ? (
-          <h3>Nenhum aluno foi cadastrado ainda!</h3>
+          <Subtitle>Nenhum aluno foi cadastrado ainda!</Subtitle>
         ) : (
-          alunos.map((aluno, index) => (
+          filteredAlunos.map((aluno, index) => (
             <div key={index}>
               <ProfilePicture>
                 {get(aluno, 'Fotos[0].url', false) ? (
@@ -85,7 +119,7 @@ const Alunos = () => {
                   <FaUserCircle size={36} />
                 )}
               </ProfilePicture>
-              <span>{`${aluno.nome} ${aluno.sobrenome}`}</span>
+              <span>{`${aluno.nome} ${aluno.sobrenome.split(' ')[0]}`}</span>
               <span>{aluno.email}</span>
               <IconsContainer>
                 <Link to={`/alunos/${aluno.id}/edit/`}>

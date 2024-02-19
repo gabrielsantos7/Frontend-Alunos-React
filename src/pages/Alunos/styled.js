@@ -8,13 +8,11 @@ export const CreateLink = styled(Link)`
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 1rem;
+  gap: 0.7rem;
   padding: 1rem 2rem;
-  width: 23rem;
-  border-radius: 4rem;
+  border-radius: 6px;
   font-size: 1.5rem;
-  letter-spacing: 1px;
-  margin-top: 2rem;
+  font-weight: 600;
   transition: all 0.2s ease-in-out;
 
   &:hover {

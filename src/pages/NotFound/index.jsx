@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Container, Title, Subtitle, Row } from '../../styles/GlobalStyles';
+import { Container, Title, Row } from '../../styles/GlobalStyles';
 import { Paragraph, HomeLink } from './styled';
 
 const NotFound = () => {

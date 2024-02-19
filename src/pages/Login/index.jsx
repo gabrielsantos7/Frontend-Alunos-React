@@ -10,7 +10,7 @@ import {
   Form,
   FloatingLabel,
   Label,
-  Input,
+  FloatingInput,
   Button,
 } from '../../styles/GlobalStyles';
 import Loading from '../../components/Loading';
@@ -54,7 +54,7 @@ const Login = () => {
 
       <Form onSubmit={handleSubmit}>
         <FloatingLabel>
-          <Input
+          <FloatingInput
             type='email'
             onChange={(e) => setEmail(e.target.value)}
             id='email'
@@ -65,7 +65,7 @@ const Login = () => {
         </FloatingLabel>
 
         <FloatingLabel>
-          <Input
+          <FloatingInput
             type='password'
             onChange={(e) => setPassword(e.target.value)}
             id='password'
