@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import * as colors from '../../config/colors';
+import * as colors from '../../styles/colors';
 
 export const Form = styled.form`
   font-size: 1.6rem;

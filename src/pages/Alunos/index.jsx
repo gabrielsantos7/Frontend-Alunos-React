@@ -59,7 +59,9 @@ const Alunos = () => {
       .then(() => {
         toast.success('Aluno(a) excluído(a) com sucesso!');
         setShowModal(false);
-        setAlunos(alunos.filter((aluno) => aluno.id !== studentToDelete.id));
+        setFilteredAlunos(
+          alunos.filter((aluno) => aluno.id !== studentToDelete.id),
+        );
       })
       .catch((error) => {
         const status = get(error, 'response.status', 0);

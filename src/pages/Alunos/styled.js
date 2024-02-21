@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import * as colors from '../../config/colors';
+import * as colors from '../../styles/colors';
 
 export const CreateLink = styled(Link)`
   background-color: ${colors.primaryColor};

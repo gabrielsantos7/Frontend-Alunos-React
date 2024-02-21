@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { disabledDarkColor, primaryColor } from '../../config/colors';
+import { disabledDarkColor, primaryColor } from '../../styles/colors';
 
 export const Paragraph = styled.p`
   color: ${disabledDarkColor};

@@ -10,7 +10,7 @@ import * as actions from '../../store/modules/auth/actions';
 import { Container, Title, Button, Subtitle } from '../../styles/GlobalStyles';
 import { ButtonLink, Buttons, Form, GalleryContainer, Small } from './styled';
 import Loading from '../../components/Loading';
-import { primaryColor } from '../../config/colors';
+import { primaryColor } from '../../styles/colors';
 import SkeletonPhoto from '../../components/SkeletonPhoto';
 
 const Photos = () => {

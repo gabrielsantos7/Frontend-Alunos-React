@@ -1,5 +1,5 @@
 import styled, { keyframes } from 'styled-components';
-import { disabledLightColor } from '../../config/colors';
+import { disabledLightColor } from '../../styles/colors';
 
 const clipPathAnimation = keyframes`
   0% {

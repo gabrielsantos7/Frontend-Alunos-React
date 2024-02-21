@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { disabledDarkColor, primaryColor } from '../../config/colors';
+import { disabledDarkColor, primaryColor } from '../../styles/colors';
 
 export const CreateAccount = styled.p`
   color: ${disabledDarkColor};

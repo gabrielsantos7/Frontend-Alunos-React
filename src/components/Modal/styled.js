@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { MdClose } from 'react-icons/md';
 import { AiOutlineExclamationCircle } from 'react-icons/ai';
-import * as colors from '../../config/colors';
+import * as colors from '../../styles/colors';
 
 export const Background = styled.div`
   width: 100vw;
