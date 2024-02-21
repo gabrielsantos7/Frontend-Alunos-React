@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import * as actions from '../../store/modules/auth/actions';
 import { toast } from 'react-toastify';
@@ -21,6 +21,7 @@ import { AccountLink } from './styled';
 
 const Register = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { user, isLoading: loading } = useSelector((state) => state.auth);
 
   const userId = user.id;
@@ -41,13 +42,13 @@ const Register = () => {
   const handleLogout = (event) => {
     event.preventDefault();
     dispatch(actions.loginFailure());
-    // TODO: Redirect to login
+    navigate('/login/');
   };
 
   const handleDelete = (event) => {
     event.preventDefault();
     dispatch(actions.deleteAccountRequest());
-    // TODO: Redirect to login
+    navigate('/login/');
   };
 
   const handleSubmit = (event) => {
@@ -84,9 +85,6 @@ const Register = () => {
   };
 
   return (
-    /*redirectToLogin ?  */
-    //   <Navigate to='/login/' />
-    // ) : (
     <Container>
       <Title>{userId ? 'Alterar dados da conta' : 'Crie sua conta'}</Title>
       <Form onSubmit={handleSubmit}>

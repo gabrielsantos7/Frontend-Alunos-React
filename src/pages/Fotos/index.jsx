@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { get } from 'lodash';
@@ -15,7 +15,9 @@ import SkeletonPhoto from '../../components/SkeletonPhoto';
 
 const Photos = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
+
   const [nome, setNome] = useState('');
   const [photo, setPhoto] = useState('');
   const [gallery, setGallery] = useState([]);
@@ -67,7 +69,7 @@ const Photos = () => {
       if (status === 401) {
         toast.error('Sessão expirada. Faça login novamente para continuar.');
         dispatch(actions.loginFailure());
-        // TODO: Redirect to login
+        navigate('/login/');
       }
     } finally {
       setLoadingForm(false);
@@ -99,14 +101,14 @@ const Photos = () => {
         const status = get(error, 'response.status', 0);
         const errors = get(error, 'response.data.errors', []);
         if (status === 400) {
-          // TODO: Redirect to home
+          navigate('/');
           toast.error(`O aluno com ID ${id} não foi encontrado.`);
         } else {
           errors.map((e) => toast.error(e));
         }
       })
       .finally(() => setLoadingPage(false));
-  }, [id]);
+  }, [id, navigate]);
 
   return (
     <Container>

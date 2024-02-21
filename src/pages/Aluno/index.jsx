@@ -1,5 +1,4 @@
-// TODO: Delete User account
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
@@ -26,6 +25,7 @@ import SkeletonForm from '../../components/SkeletonForm';
 const Aluno = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [loadingPage, setLoadingPage] = useState(false);
   const [loadingForm, setLoadingForm] = useState(false);
@@ -96,7 +96,7 @@ const Aluno = () => {
           });
           toast.success('Aluno(a) criado(a) com sucesso!');
         }
-        // TODO: Redirect to home
+        navigate('/');
       } catch (error) {
         const status = get(error, 'response.status', 0);
         const data = get(error, 'response.data', {});
@@ -112,7 +112,7 @@ const Aluno = () => {
         if (status === 401) {
           toast.error('Sessão expirada. Faça login novamente para continuar.');
           dispatch(actions.loginFailure());
-          // TODO: Redirect to login
+          navigate('/login/');
         }
       } finally {
         setLoadingForm(false);
@@ -140,7 +140,7 @@ const Aluno = () => {
         const status = get(error, 'response.status', 0);
         const errors = get(error, 'response.data.errors', []);
         if (status === 400) {
-          // TODO: Redirect to home
+          navigate('/');
           toast.error(`O aluno com ID ${id} não foi encontrado.`);
         } else {
           errors.map((e) => toast.error(e));
