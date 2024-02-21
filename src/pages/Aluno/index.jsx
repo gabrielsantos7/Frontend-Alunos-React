@@ -147,7 +147,7 @@ const Aluno = () => {
         }
       })
       .finally(() => setLoadingPage(false));
-  }, [id]);
+  }, [id, navigate]);
 
   return (
     <Container>
