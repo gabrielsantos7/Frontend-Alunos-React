@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Navigate } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import * as actions from '../../store/modules/auth/actions';
 import { toast } from 'react-toastify';
@@ -13,8 +13,11 @@ import {
   FloatingInput,
   Label,
   Form,
+  Row,
 } from '../../styles/GlobalStyles';
 import Loading from '../../components/Loading';
+import { FaPowerOff, FaSignInAlt } from 'react-icons/fa';
+import { AccountLink } from './styled';
 
 const Register = () => {
   const dispatch = useDispatch();
@@ -34,6 +37,12 @@ const Register = () => {
     setUsername(nameStored);
     setEmail(emailStored);
   }, [userId, nameStored, emailStored]);
+
+  const handleLogout = (event) => {
+    event.preventDefault();
+    dispatch(actions.loginFailure());
+    // TODO: Redirect to login
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -121,6 +130,19 @@ const Register = () => {
         >
           {loading ? <Loading /> : userId ? 'Salvar alterações' : 'Criar conta'}
         </Button>
+
+        {userId && (
+          <Row $justify='space-between'>
+            <AccountLink to='/login/'>
+              <FaSignInAlt size={24} />
+              <span>Entrar em outra conta</span>
+            </AccountLink>
+            <AccountLink to='/register/' onClick={handleLogout}>
+              <FaPowerOff size={24} />
+              <span>Sair</span>
+            </AccountLink>
+          </Row>
+        )}
       </Form>
     </Container>
   );

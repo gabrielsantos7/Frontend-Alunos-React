@@ -11,6 +11,9 @@ export const Nav = styled.nav`
     justify-content: center;
     gap: 2rem;
     color: #fff;
+  }
 
+  span {
+    font-family: 'Montserrat', sans-serif;
   }
 `;

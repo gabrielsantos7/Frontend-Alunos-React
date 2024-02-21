@@ -1,5 +1,14 @@
 import styled from 'styled-components';
+import { disabledDarkColor, primaryColor } from '../../config/colors';
 
-export const Title = styled.h1`
-  color: ${(prop) => (prop.color ? prop.color : 'black')}
+export const CreateAccount = styled.p`
+  color: ${disabledDarkColor};
+
+  a {
+    color: ${disabledDarkColor};
+    &:hover {
+      color: ${primaryColor};
+      text-decoration: underline;
+    }
+  }
 `;

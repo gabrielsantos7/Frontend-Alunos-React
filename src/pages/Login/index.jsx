@@ -14,6 +14,8 @@ import {
   Button,
 } from '../../styles/GlobalStyles';
 import Loading from '../../components/Loading';
+import { CreateAccount } from './styled';
+import { Link } from 'react-router-dom';
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -81,6 +83,10 @@ const Login = () => {
         >
           {loading ? <Loading /> : 'Acessar'}
         </Button>
+
+        <CreateAccount>
+          Não tem uma conta? <Link to='/register/'>Cadastre-se agora!</Link>
+        </CreateAccount>
       </Form>
     </Container>
   );
