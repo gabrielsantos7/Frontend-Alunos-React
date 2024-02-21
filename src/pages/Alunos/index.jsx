@@ -143,8 +143,10 @@ const Alunos = () => {
         <Modal
           showModal={showModal}
           setShowModal={setShowModal}
-          studentToDelete={studentToDelete}
+          itemToDelete={studentToDelete}
           handleConfirmDelete={handleConfirmDelete}
+          message={`Deseja excluir o(a) aluno(a) ${studentToDelete.nome}?`}
+          confirmText='Esta ação é irreversível e removerá o aluno do sistema.'
         />
       </AlunosContainer>
     </Container>

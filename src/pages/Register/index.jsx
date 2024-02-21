@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Link, Navigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import * as actions from '../../store/modules/auth/actions';
 import { toast } from 'react-toastify';
+import { FaPowerOff, FaSignInAlt, FaTrashAlt } from 'react-icons/fa';
 import { isEmail } from 'validator';
 
 import {
@@ -16,7 +17,6 @@ import {
   Row,
 } from '../../styles/GlobalStyles';
 import Loading from '../../components/Loading';
-import { FaPowerOff, FaSignInAlt } from 'react-icons/fa';
 import { AccountLink } from './styled';
 
 const Register = () => {
@@ -41,6 +41,12 @@ const Register = () => {
   const handleLogout = (event) => {
     event.preventDefault();
     dispatch(actions.loginFailure());
+    // TODO: Redirect to login
+  };
+
+  const handleDelete = (event) => {
+    event.preventDefault();
+    dispatch(actions.deleteAccountRequest());
     // TODO: Redirect to login
   };
 
@@ -134,12 +140,16 @@ const Register = () => {
         {userId && (
           <Row $justify='space-between'>
             <AccountLink to='/login/'>
-              <FaSignInAlt size={24} />
+              <FaSignInAlt size={20} />
               <span>Entrar em outra conta</span>
             </AccountLink>
             <AccountLink to='/register/' onClick={handleLogout}>
-              <FaPowerOff size={24} />
+              <FaPowerOff size={20} />
               <span>Sair</span>
+            </AccountLink>
+            <AccountLink to='/register/' onClick={handleDelete}>
+              <FaTrashAlt size={18} />
+              <span>Excluir conta</span>
             </AccountLink>
           </Row>
         )}

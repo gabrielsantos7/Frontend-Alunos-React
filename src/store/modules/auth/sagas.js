@@ -18,6 +18,17 @@ function* loginRequest({ payload }) {
   }
 }
 
+function* deleteAccountRequest({ payload }) {
+  try {
+    const response = yield call(axios.delete, '/users/', payload);
+    yield put(actions.deleteAccountSuccess({ ...response.data }));
+    toast.success('Conta excluída com sucesso!');
+  } catch (error) {
+    toast.error('Erro ao excluir conta. Por favor, tente novamente.');
+    yield put(actions.deleteAccountFailure());
+  }
+}
+
 function* registerRequest({ payload }) {
   const { id, nome, email, password } = payload;
 
@@ -67,5 +78,6 @@ function persistRehydrate({ payload }) {
 export default all([
   takeLatest(types.LOGIN_REQUEST, loginRequest),
   takeLatest(types.REGISTER_REQUEST, registerRequest),
+  takeLatest(types.DELETE_ACCOUNT_REQUEST, deleteAccountRequest),
   takeLatest(types.PERSIST_REHYDRATE, persistRehydrate),
 ]);

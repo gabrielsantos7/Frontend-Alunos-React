@@ -57,6 +57,24 @@ const reducer = (state = initialState, action) => {
       return newState;
     }
 
+    case types.DELETE_ACCOUNT_REQUEST: {
+      const newState = { ...state };
+      newState.isLoading = true;
+      return newState;
+    }
+
+    case types.DELETE_ACCOUNT_SUCCESS: {
+      const newState = { ...initialState };
+      delete axios.defaults.headers.Authorization;
+      return newState;
+    }
+
+    case types.DELETE_ACCOUNT_FAILURE: {
+      const newState = { ...state };
+      newState.isLoading = false;
+      return newState;
+    }
+
     default:
       return state;
   }

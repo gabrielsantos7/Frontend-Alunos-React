@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef } from 'react';
-import Proptypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { useSpring, animated } from '@react-spring/web';
 import {
   Background,
@@ -9,12 +9,15 @@ import {
   ModalFooter,
   Exclamation,
 } from './styled';
+import { Title } from '../../styles/GlobalStyles';
 
 const Modal = ({
   showModal,
   setShowModal,
-  studentToDelete,
+  objectToDelete,
   handleConfirmDelete,
+  message,
+  confirmText,
 }) => {
   const modalRef = useRef();
 
@@ -56,8 +59,8 @@ const Modal = ({
               />
               <ModalContent>
                 <Exclamation />
-                <h2>Deseja excluir o(a) aluno(a) {studentToDelete.nome}?</h2>
-                <p>Esta ação é irreversível e removerá o aluno do sistema.</p>
+                <Title>{message}</Title>
+                <p>{confirmText}</p>
               </ModalContent>
               <ModalFooter>
                 <button
@@ -70,7 +73,7 @@ const Modal = ({
                   type='button'
                   onClick={() => {
                     setShowModal(false);
-                    handleConfirmDelete();
+                    handleConfirmDelete(objectToDelete);
                   }}
                 >
                   Confirmar
@@ -85,13 +88,12 @@ const Modal = ({
 };
 
 Modal.propTypes = {
-  showModal: Proptypes.bool.isRequired,
-  setShowModal: Proptypes.func.isRequired,
-  studentToDelete: Proptypes.shape({
-    id: Proptypes.number,
-    nome: Proptypes.string,
-  }).isRequired,
-  handleConfirmDelete: Proptypes.func.isRequired,
+  showModal: PropTypes.bool.isRequired,
+  setShowModal: PropTypes.func.isRequired,
+  objectToDelete: PropTypes.object,
+  handleConfirmDelete: PropTypes.func.isRequired,
+  message: PropTypes.string.isRequired,
+  confirmText: PropTypes.string.isRequired,
 };
 
 export default Modal;

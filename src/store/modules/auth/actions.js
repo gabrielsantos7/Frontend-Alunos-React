@@ -28,6 +28,25 @@ export const registerRequest = (payload) => {
   };
 };
 
+export const deleteAccountRequest = (payload) => {
+  return {
+    type: types.DELETE_ACCOUNT_REQUEST,
+    payload,
+  };
+};
+export const deleteAccountSuccess = (payload) => {
+  return {
+    type: types.DELETE_ACCOUNT_SUCCESS,
+    payload,
+  };
+};
+export const deleteAccountFailure = (payload) => {
+  return {
+    type: types.DELETE_ACCOUNT_FAILURE,
+    payload,
+  };
+};
+
 export const registerUpdatedSuccess = (payload) => {
   return {
     type: types.REGISTER_UPDATED_SUCCESS,
